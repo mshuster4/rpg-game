@@ -12,26 +12,33 @@
     <title>Southpark RPG</title>
 </head>
 <body>
-<div class="header">
+<div class="header text-center">
     <h1>Southpark RPG</h1>
 </div>
 
 <div class="container">
+    <div class="row" id="character-choices"></div>
+
     <div class="row">
-        <div class="col-sm-3">
-            <img src="assets/images/kenny.jpg" class="img-fluid">
-        </div>
-        <div class="col-sm-3">
-            <img src="assets/images/jimmy.jpg" class="img-fluid">
-        </div>
-        <div class="col-sm-3">
-            <img src="assets/images/woodland-critter.jpg" class="img-fluid">
-        </div>
-        <div class="col-sm-3">
-            <img src="assets/images/towelie.jpg" class="img-fluid">
+        <div class="col-sm-12">
+            <p>Your Character</p>
         </div>
     </div>
+
+    <div class="row" id="your-character"></div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p>Enemies Available To Attack</p>
+        </div>
+    </div>
+
+    <div class="row" id="enemies"></div>
+
 </div>
+
+<script type="text/javascript" src="assets/javascript/game.js"></script>
 
 </body>
 </html>
