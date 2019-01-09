@@ -38,8 +38,9 @@ $(document).ready(function() {
     };
 
     var attackChoice;
-    var enemies = [];
-    var defenderChoice; 
+    var defenderChoice;
+    var enemies = []; 
+
 
   function loadCharacters(characters, loadingDiv) {
 
@@ -64,7 +65,8 @@ $(document).ready(function() {
 
     $("#character-choices").on("click", ".character", function() {
 
-    
+        $("#character-choices").empty();
+
         var attackChoice = $(this).attr("data-name"); 
         
         for (var key in characters) {
@@ -84,37 +86,69 @@ $(document).ready(function() {
 
         }
         
-        updateDom(attackChoice, enemies); 
+        updateDom(attackChoice, "#your-character"); 
+        loadEnemies(enemies, "#enemies"); 
+        renderFighters(attackChoice, enemies)
 
 
     });
 
 
-    function updateDom(attackChoice, enemies) {
+    function updateDom(choice, gameDiv) {
 
-        $("#character-choices").empty();
-
-        var playerDiv = $("<div class='col-sm-3 character' data-name='" + attackChoice.name + "'>"); 
-        var playerName = $("<p class='text-center character-name'>").text(attackChoice.name);
-        var playerImage = $("<img alt='image' class='img-fluid character-image'>").attr("src", attackChoice.image);
-        var playerHealth = $("<p class='text-center character-health'>").text(attackChoice.health); 
+        var playerDiv = $("<div class='col-sm-3 character' data-name='" + choice.name + "'>"); 
+        var playerName = $("<p class='text-center character-name'>").text(choice.name);
+        var playerImage = $("<img alt='image' class='img-fluid character-image'>").attr("src", choice.image);
+        var playerHealth = $("<p class='text-center character-health'>").text(choice.health); 
         playerDiv.append(playerName).append(playerImage).append(playerHealth);
-        $("#your-character").append(playerDiv); 
+        $(gameDiv).append(playerDiv); 
+    
+    }
 
-       
-        for (var i = 0; i < enemies.length; i++) {
+    function loadEnemies(array, fightDiv) {
 
-        var enemyDiv = $("<div class='col-sm-3 character' data-name='" + enemies[i].name + "'>"); 
-        var enemyName = $("<p class='text-center chracter-name'>").text(enemies[i].name);
-        var enemyImage = $("<img alt='image' class='img-fluid character-image'>").attr("src", enemies[i].image);
-        var enemyHealth = $("<p class='text-center character-health'>").text(enemies[i].health); 
+
+        for (var i = 0; i < array.length; i++) {
+
+        var enemyDiv = $("<div class='col-sm-3 character' data-name='" + array[i].name + "'>"); 
+        var enemyName = $("<p class='text-center chracter-name'>").text(array[i].name);
+        var enemyImage = $("<img alt='image' class='img-fluid character-image'>").attr("src", array[i].image);
+        var enemyHealth = $("<p class='text-center character-health'>").text(array[i].health); 
         enemyDiv.append(enemyName).append(enemyImage).append(enemyHealth); 
-        $("#enemies").append(enemyDiv); 
+        $(fightDiv).append(enemyDiv); 
 
         }
 
 
     }
+
+    function renderFighters (attackChoice, enemies) {
+
+        $("#enemies").on("click", ".character", function() {
+
+            var defenderChoice = $(this).attr("data-name"); 
+        
+            for (key in characters) {
+
+                if (defenderChoice == characters[key].name) {
+
+                    defenderChoice = characters[key];
+                    console.log("defender choice: ", defenderChoice); 
+
+                }
+
+            }
+
+        
+        updateDom(defenderChoice, "#defender"); 
+
+
+    });
+
+
+}
+
+
 
 
 });
